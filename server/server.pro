@@ -18,6 +18,7 @@ SOURCES += \
 HEADERS += \
     MD5.h \
     RSA.h \
+    gmp.h \
     mainwindow.h \
     network.h
 
@@ -31,3 +32,8 @@ DEPENDPATH += $$PWD/
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    libgcc_s_dw2-1.dll \
+    libgmp-10.dll \
+    libgmp-10.lib

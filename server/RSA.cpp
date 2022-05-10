@@ -70,7 +70,7 @@ char * encrypt(const char * plain,char * n, int e)
     //gmp_printf("plain=",M);
     mpz_init_set_str(key_n, n, 16);
     mpz_init_set_ui(C, 0);
-    //gmp_printf("plain=",C);
+    gmp_printf("plain=",C);
     mpz_powm_ui(C, M, e, key_n);    //使用GMP中模幂计算函数
 
     char * res = new char[KEY_LENGTH + 16];

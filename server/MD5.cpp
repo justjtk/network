@@ -1,5 +1,6 @@
 #include"MD5.h"
 
+
 QByteArray  sign_create(QByteArray data ,char * n,char * d)//数字签名生成与加密,并且拼接到正文后面
 {
     QByteArray hash = QCryptographicHash::hash(data, QCryptographicHash::Md5);
