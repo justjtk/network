@@ -1,5 +1,7 @@
 #ifndef RSA_H
 #define RSA_H
+
+#endif // RSA_H
 #include <iostream>
 #include<cstring>
 #include<ctime>
@@ -23,5 +25,3 @@ string decrypt_str(string cipher, char * n, char * d);
 string encrypt_str(string plain,char * n, int e);//解密字符串
 char * encrypt(const char * plain,char * n, int e);//加密数字
 char * decrypt(const char * cipher, char * n, char * d);//解密数字
-#endif // RSA_H
-

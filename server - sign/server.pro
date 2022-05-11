@@ -19,26 +19,22 @@ SOURCES += \
 HEADERS += \
     MD5.h \
     RSA.h \
+    gmp.h \
     mainwindow.h \
     network.h
 
 FORMS += \
     mainwindow.ui
-
-
 LIBS += -llibgmp-10
 win32: LIBS += -L$$PWD/ -llibgmp-10
 INCLUDEPATH += $$PWD/
 DEPENDPATH += $$PWD/
-#LIBS += -llibgmp-10
-#LIBS += $$PWD/gmp64/libgcc.a
-
-#win64: LIBS += -L$$PWD/gmp/lib/libgcc.a
-#win64: LIBS += -L$$PWD/gmp/lib/libgmp.a
-#win64: LIBS += -L$$PWD/gmp/lib/libgmpxx.a
-#INCLUDEPATH += $$PWD/gmp/include
-
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    libgcc_s_dw2-1.dll \
+    libgmp-10.dll \
+    libgmp-10.lib

@@ -9,6 +9,8 @@
 #include<iostream>
 #include"network.h"
 #include<QBuffer>
+#include<QSqlTableModel>
+#include<QVector>
 using namespace std;
 
 struct test{
@@ -33,29 +35,27 @@ int main(int argc, char *argv[])
     qDebug()<<"e = "<<p->e<<endl;
 
 
-    QString str1="nice";
+    //QString str1="nice";
     test str;
     str.a=4;
     str.data="123456";
     QByteArray data;
-    data.append(str.data);
+
     QBuffer buffer(&data);
     buffer.open(QIODevice::WriteOnly);
     QDataStream out(&buffer);
     out<<str.a<<str.data;
     buffer.close();
-    QBuffer buf(&data);
-    buf.open(QIODevice::ReadOnly);
-    QDataStream in(&buf);
 
-    test str3;
-    in>>str3.a>>str3.data;
-    qDebug()<<str3.a<<str3.data;
 
     qDebug()<<sizeof(str)<<data.length();
 
-    QByteArray sign;
-    sign.append(str1);
+    //QByteArray sign;
+    //sign.append(str1);
+
+
+
+
     int i=1;
     int y=2;
     QTcpSocket *tcpClient=new QTcpSocket;
@@ -66,6 +66,19 @@ int main(int argc, char *argv[])
         //bool judge=package_message(i,y,data,tcpClient,p->n,p->e,p->n,p->d);//有数字签名
         //bool judge=package_message_noencrypt(i,y,data,tcpClient);//无加密无数字签名
         bool judge=package_message(i,y,data,tcpClient,p->n,p->e);//无数字签名有加密
+
+
+//        Message tempx=receive_message(tcpClient,p->n,p->d);//无数字签名有加密
+//        QBuffer buf(&tempx.data);
+//        buf.open(QIODevice::ReadOnly);
+//        QDataStream in(&buf);
+        //QStandardItemModel model;
+        //test str3;
+//        QVector<QStandardItemModel> h;
+//        in>>h;
+        //qDebug()<<str3.a<<str3.data;
+
+
         tcpClient->disconnectFromHost();
         tcpClient->waitForDisconnected();
     }
