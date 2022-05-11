@@ -23,10 +23,20 @@ HEADERS += \
 
 FORMS += \
     mainwindow.ui
+
+
 LIBS += -llibgmp-10
 win32: LIBS += -L$$PWD/ -llibgmp-10
 INCLUDEPATH += $$PWD/
 DEPENDPATH += $$PWD/
+#LIBS += -llibgmp-10
+#LIBS += $$PWD/gmp64/libgcc.a
+
+#win64: LIBS += -L$$PWD/gmp/lib/libgcc.a
+#win64: LIBS += -L$$PWD/gmp/lib/libgmp.a
+#win64: LIBS += -L$$PWD/gmp/lib/libgmpxx.a
+#INCLUDEPATH += $$PWD/gmp/include
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

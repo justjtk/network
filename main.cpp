@@ -2,6 +2,7 @@
 
 #include <QApplication>
 #include"gmp.h"
+//#include"gmpxx.h"
 //#include"RSA.h"
 //#include"MD5.h"
 #include<QDebug>
@@ -12,7 +13,7 @@ using namespace std;
 
 struct test{
     int a;
-    QString data;
+    QByteArray data;
 };
 
 int main(int argc, char *argv[])
@@ -30,32 +31,29 @@ int main(int argc, char *argv[])
     qDebug()<<"n = "<<p->n<<endl;
     qDebug()<<"d = "<<p->d<<endl;
     qDebug()<<"e = "<<p->e<<endl;
-//    string buf="你好";
-//    string cipher_text = encrypt_str(buf, p->n, p->e);
-//    qDebug()<<"密文为"<<cipher_text.c_str()<<endl;
-//    string plain_text = decrypt_str(cipher_text, p->n, p->d);
-//    qDebug()<<""<<plain_text.c_str()<<endl;
-
-
-
-//    QString str="hello world";
 
 
     QString str1="nice";
     test str;
     str.a=4;
-    str.data="2.5";
+    str.data="123456";
     QByteArray data;
+    data.append(str.data);
     QBuffer buffer(&data);
     buffer.open(QIODevice::WriteOnly);
     QDataStream out(&buffer);
     out<<str.a<<str.data;
     buffer.close();
-    //data.append((char*)&str,sizeof(test));
+    QBuffer buf(&data);
+    buf.open(QIODevice::ReadOnly);
+    QDataStream in(&buf);
+
+    test str3;
+    in>>str3.a>>str3.data;
+    qDebug()<<str3.a<<str3.data;
+
     qDebug()<<sizeof(str)<<data.length();
 
-//    QByteArray data;
-//    data.append(str);
     QByteArray sign;
     sign.append(str1);
     int i=1;
@@ -65,7 +63,9 @@ int main(int argc, char *argv[])
     tcpClient->connectToHost("127.0.0.1",6666);
     if(tcpClient->waitForConnected(3000))
     {
-        bool judge=package_message(i,y,data,tcpClient,p->n,p->e,p->n,p->d);
+        //bool judge=package_message(i,y,data,tcpClient,p->n,p->e,p->n,p->d);//有数字签名
+        //bool judge=package_message_noencrypt(i,y,data,tcpClient);//无加密无数字签名
+        bool judge=package_message(i,y,data,tcpClient,p->n,p->e);//无数字签名有加密
         tcpClient->disconnectFromHost();
         tcpClient->waitForDisconnected();
     }
@@ -75,6 +75,7 @@ int main(int argc, char *argv[])
         qDebug()<<"连接失败";
         tcpClient->waitForDisconnected();
     }
+
 
     return a.exec();
 

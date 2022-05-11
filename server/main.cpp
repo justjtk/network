@@ -11,7 +11,7 @@
 using namespace std;
 struct test{
     int a;
-    QString data;
+    QByteArray data;
 };
 
 int main(int argc, char *argv[])
@@ -33,9 +33,9 @@ int main(int argc, char *argv[])
     qDebug()<<"n = "<<p->n<<endl;
     qDebug()<<"d = "<<p->d<<endl;
     qDebug()<<"e = "<<p->e<<endl;
-    Message tempx=receive_message(socket,p->n,p->d,p->n,p->e);
-
-//    //test* str=(test*)temp.data.data();
+    //Message tempx=receive_message(socket,p->n,p->d,p->n,p->e);//有数字签名有加密
+    //Message tempx=receive_message_nodecrypt(socket);//无数字签名无加密
+    Message tempx=receive_message(socket,p->n,p->d);//无数字签名有加密
 
     QBuffer buf(&tempx.data);
     buf.open(QIODevice::ReadOnly);
@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
 
     test str3;
     in>>str3.a>>str3.data;
+    qDebug()<<str3.a<<str3.data;
 
     //mes_len msg;
 
