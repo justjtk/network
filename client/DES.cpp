@@ -449,4 +449,3 @@ QByteArray DES_de(QByteArray K,QByteArray C){return Encrypt(K,C,0);}
 
 
 
-
