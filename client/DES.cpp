@@ -151,12 +151,12 @@ bitset<48> K_cp_pmt(bitset<28> Ci, bitset<28> Di)
     return Ki;
 }
 
-int init_pmt(bitset<64> M, bitset<32>* L0, bitset<32>* R0)//£¡£¡£¡£¡£¡£¡
+int init_pmt(bitset<64> M, bitset<32>* L0, bitset<32>* R0)//ï¼ï¼ï¼ï¼ï¼ï¼
 {
     for (int i = 0; i < 64; i++)
     {
         if (i <= 31)//L0
-            (*L0)[i]= M[IP[i]-1];//Ö¸Õë£¡£¡£¡£¡£¡
+            (*L0)[i]= M[IP[i]-1];//æŒ‡é’ˆï¼ï¼ï¼ï¼ï¼
         else//R0
             (*R0)[i-32] = M[IP[i]-1];
     }
@@ -191,10 +191,10 @@ bitset<32> s_box(bitset<48> KR)
         int row = KR[i * 6] * 2 + KR[i * 6 + 5];
         int col = KR[i * 6 + 1] * 8 + KR[i * 6 + 2] * 4 + KR[i * 6 + 3] * 2 + KR[i * 6 + 4];
         int temp = S[i][row][col];
-        bitset<4> si=temp;//£¡£¡£¡
+        bitset<4> si=temp;//ï¼ï¼ï¼
         for (int j = 0; j < 4; j++)
         {
-            SR[i * 4 + j] = si[3-j];//£¡£¡£¡
+            SR[i * 4 + j] = si[3-j];//ï¼ï¼ï¼
         }
     }
     return SR;
@@ -245,7 +245,7 @@ bitset<64> cycle(bitset<48> Keys[16], bitset<64>M, bool en_or_de)
     return Cipher;
 }
 
-//string½øÖÆ×ª»»
+//stringè¿›åˆ¶è½¬æ¢
 string Hex2bin (string strHex)
 {
     string sReturn = "";
@@ -312,7 +312,7 @@ string Bin2hex (string strBin)
     return sReturn;
 }
 
-//»ñÈ¡ÃÜÔ¿
+//è·å–å¯†é’¥
 QByteArray Get_K()
 {
     QByteArray K;
@@ -324,7 +324,7 @@ QByteArray Get_K()
     return K;
 }
 
-//Ã¿Ò»·ÖÆ¬DES¼ÓÃÜ
+//æ¯ä¸€åˆ†ç‰‡DESåŠ å¯†
 bitset<64> DES_encrypt(string strK,string strM,int mode)
 {
         bitset<64> K(strK),M(strM),Cipher;
@@ -333,7 +333,7 @@ bitset<64> DES_encrypt(string strK,string strM,int mode)
         bitset<28> C, D;
 
         if(mode){
-            //½«M×ª»»ÎªbitsetË³Ğò
+            //å°†Mè½¬æ¢ä¸ºbitseté¡ºåº
             for (int i = 0; i < 32; i++)
             {
                 int temp = M[i];
@@ -364,10 +364,10 @@ bitset<64> DES_encrypt(string strK,string strM,int mode)
         return Cipher;
 }
 
-//²¹Î»
+//è¡¥ä½
 void Supplement(int* mode,int* str_len,string* str_m)
 {
-    if(mode)//¼ÓÃÜÊ±²¹Î»
+    if(mode)//åŠ å¯†æ—¶è¡¥ä½
     {
         if((*str_len)%16)
         {
@@ -397,29 +397,29 @@ void Supplement(int* mode,int* str_len,string* str_m)
     }
 }
 
-//ÕûÌåDES¼ÓÃÜ
+//æ•´ä½“DESåŠ å¯†
 QByteArray Encrypt(QByteArray K,QByteArray M,int mode)
 {
-    K=K.toHex();//QBt->Ê®Áù½øÖÆQBt
-    M=M.toHex();//QBt->Ê®Áù½øÖÆQBt
-    QString qstr_k=K,qstr_m=M,qstr_c;//Ê®Áù½øÖÆQBt->QString
+    K=K.toHex();//QBt->åå…­è¿›åˆ¶QBt
+    M=M.toHex();//QBt->åå…­è¿›åˆ¶QBt
+    QString qstr_k=K,qstr_m=M,qstr_c;//åå…­è¿›åˆ¶QBt->QString
     string str_k=qstr_k.toStdString();//QString->string
     string str_m=qstr_m.toStdString();//QString->string
     int str_len=str_m.length();
     int *md=&mode;
     int *strl=&str_len;
     string *stringm=&str_m;
-    Supplement( md, strl, stringm);//²¹Î»
+    Supplement( md, strl, stringm);//è¡¥ä½
     string bin_k=Hex2bin(str_k);
-    string bin_m=Hex2bin(str_m);//string->¶ş½øÖÆstring
-    bitset<64> bit_k(bin_k);//ÃÜÔ¿
-    vector<bitset<64>> bit_m;//Ã÷ÎÄ
-    string str_c="";//stringÃÜÎÄ
-    QByteArray qbit_c;//QByteArrayÃÜÎÄ
+    string bin_m=Hex2bin(str_m);//string->äºŒè¿›åˆ¶string
+    bitset<64> bit_k(bin_k);//å¯†é’¥
+    vector<bitset<64>> bit_m;//æ˜æ–‡
+    string str_c="";//stringå¯†æ–‡
+    QByteArray qbit_c;//QByteArrayå¯†æ–‡
     int len=bin_m.length();
-    for(int i=0;i<len/64;i++)//·ÖÆ¬¼ÓÃÜ
+    for(int i=0;i<len/64;i++)//åˆ†ç‰‡åŠ å¯†
     {
-        bitset<64> piece_c=DES_encrypt(bin_k,bin_m.substr(0,64),mode);//Ã¿¸ö·ÖÆ¬¼ÓÃÜ
+        bitset<64> piece_c=DES_encrypt(bin_k,bin_m.substr(0,64),mode);//æ¯ä¸ªåˆ†ç‰‡åŠ å¯†
         bin_m.erase(0,64);
         string str_c_piece=piece_c.to_string();
         if(mode==0)
@@ -445,6 +445,7 @@ QByteArray Encrypt(QByteArray K,QByteArray M,int mode)
 
 QByteArray DES_en(QByteArray K,QByteArray M){return Encrypt(K,M,1);}
 QByteArray DES_de(QByteArray K,QByteArray C){return Encrypt(K,C,0);}
+
 
 
 
