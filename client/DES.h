@@ -48,4 +48,5 @@ QByteArray DES_de(QByteArray K,QByteArray C);//解密
 QByteArray Get_K();
 
 
+
 #endif // DES_H
