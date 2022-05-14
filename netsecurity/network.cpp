@@ -1,6 +1,6 @@
 #include "network.h"
 #include<QNetworkInterface>
-
+#include<QDataStream>
 
 QString getMyIpString()
 {
@@ -125,31 +125,60 @@ bool package_message_noencrypt(char message_type,char field_type,QByteArray  mes
 }
 
 
+//int send_message(QTcpSocket *socket,Message message)
+//{
+//    mes_len msg;
+//    Mes header(message);
+//    msg.message_length=sizeof(header);
+//    QByteArray data1;
+//    data1.append((char*)&msg, sizeof(msg));
+//    int num=socket->write(data1);
+//    //qDebug()<<num;
+//    socket->waitForBytesWritten();
+//    QByteArray data2;
+//    data2.append((char *)&header, sizeof(header));
+//    num=socket->write(data2);
+//    //qDebug()<<message.message_length;
+//    socket->waitForBytesWritten();
+
+//    QByteArray data3(message.data);
+//    data3.append(message.sign);
+
+//    num=socket->write(data3);
+//    socket->waitForBytesWritten();
+//    return num;
+//}
+
 int send_message(QTcpSocket *socket,Message message)
 {
+    QByteArray m_data_block;
+    QDataStream send_procedure(&m_data_block, QIODevice::WriteOnly);
+    send_procedure.setVersion(QDataStream::Qt_5_12);
     mes_len msg;
     Mes header(message);
     msg.message_length=sizeof(header);
-    QByteArray data1;
-    data1.append((char*)&msg, sizeof(msg));
-    int num=socket->write(data1);
-    //qDebug()<<num;
-    socket->waitForBytesWritten();
+
+    send_procedure<<msg.message_length;
+    qDebug()<<m_data_block.length();
+
     QByteArray data2;
     data2.append((char *)&header, sizeof(header));
-    num=socket->write(data2);
+
+    send_procedure<<data2;
+    qDebug()<<data2.length()<<m_data_block.length();
+
+
     //qDebug()<<message.message_length;
-    socket->waitForBytesWritten();
 
     QByteArray data3(message.data);
     data3.append(message.sign);
 
-    num=socket->write(data3);
+    send_procedure<<data3;
+    qDebug()<<data3.length()<<m_data_block.length();
+    socket->write(m_data_block);
     socket->waitForBytesWritten();
-    return num;
+    return 0;
 }
-
-
 
 Message receive_message(QTcpSocket *socket,char * n, char * d,char * sign_n, int sign_e)
 {
@@ -161,6 +190,7 @@ Message receive_message(QTcpSocket *socket,char * n, char * d,char * sign_n, int
     QByteArray t1=socket->read(msg1->message_length);
     Mes *header=(Mes *)t1.data();
     qDebug()<<int(header->field_type);
+    socket->waitForReadyRead();
     QByteArray t2=socket->read((header->message_length+header->sign_length));
     QString te=QString(t2.left(header->message_length));
     Message res;
@@ -201,6 +231,7 @@ Message receive_message_nodecrypt(QTcpSocket *socket)
     QByteArray t1=socket->read(msg1->message_length);
     Mes *header=(Mes *)t1.data();
     qDebug()<<int(header->field_type);
+    socket->waitForReadyRead();
     QByteArray t2=socket->read((header->message_length+header->sign_length));
     QString te=QString(t2.left(header->message_length));
     Message res;
