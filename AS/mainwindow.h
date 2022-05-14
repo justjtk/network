@@ -3,6 +3,13 @@
 #include"network.h"
 #include <QMainWindow>
 #include<QTime>
+#include<QTcpServer>
+#include<QTcpSocket>
+#include <QProcess>
+#include <QMessageBox>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -13,29 +20,27 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    QTcpServer *TCPServer;
+    QTcpSocket *socket;
+    QByteArray m_buffer;
+    key_pair * p=new key_pair();//自己的密钥
+    Message recv_mes;
 
+    void AS_handel();
+    ~MainWindow();
+private slots:
+   void socket_Read_Data();
 private:
     Ui::MainWindow *ui;
 };
-/*struct Message
-{
-    unsigned int message_length;//报文长度
-    char message_type;//报文类型
-    char field_type;//字段类型
-    unsigned char des_ip[4]={0,0,0,0};//目的IP
-    unsigned char des_src[4]={0,0,0,0};//源IP
-    unsigned int sign_length;//数字签名长度
-    QByteArray data;//数据内容
-    QByteArray sign;//数字签名
-};*/
+
 struct CtoAS{
     int IDc;
     int IDtgs;
     QString TS1;
 };
 struct Ticket {
-int Key_cn;//c与tgs的des密钥
+QByteArray Key_cn;//c与tgs的des密钥
 int IDc;
 int ID;
 QString TS;
@@ -43,7 +48,7 @@ int lifetime;//hour
 };
 
 struct AStoC{
-int Key_c_tgs;//c与tgs的des密钥
+QByteArray Key_c_tgs;//c与tgs的des密钥
 int IDtgs;
 QString TS2;
 int lifetime;
