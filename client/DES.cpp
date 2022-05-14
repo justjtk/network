@@ -356,10 +356,10 @@ bitset<64> DES_encrypt(string strK,string strM,int mode)
         }
 
         Cipher=cycle(Keys, M, mode);
-        for (int k = 0; k < Cipher.size(); k++)
-        {
-            if (k % 8 == 0) printf(" ");
-        }
+//         for (int k = 0; k < Cipher.size(); k++)
+//         {
+//             if (k % 8 == 0) printf(" ");
+//         }
 
         return Cipher;
 }
