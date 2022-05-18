@@ -151,12 +151,12 @@ bitset<48> K_cp_pmt(bitset<28> Ci, bitset<28> Di)
     return Ki;
 }
 
-int init_pmt(bitset<64> M, bitset<32>* L0, bitset<32>* R0)//£¡£¡£¡£¡£¡£¡
+int init_pmt(bitset<64> M, bitset<32>* L0, bitset<32>* R0)//ï¼ï¼ï¼ï¼ï¼ï¼
 {
     for (int i = 0; i < 64; i++)
     {
         if (i <= 31)//L0
-            (*L0)[i]= M[IP[i]-1];//Ö¸Õë£¡£¡£¡£¡£¡
+            (*L0)[i]= M[IP[i]-1];//æŒ‡é’ˆï¼ï¼ï¼ï¼ï¼
         else//R0
             (*R0)[i-32] = M[IP[i]-1];
     }
@@ -191,10 +191,10 @@ bitset<32> s_box(bitset<48> KR)
         int row = KR[i * 6] * 2 + KR[i * 6 + 5];
         int col = KR[i * 6 + 1] * 8 + KR[i * 6 + 2] * 4 + KR[i * 6 + 3] * 2 + KR[i * 6 + 4];
         int temp = S[i][row][col];
-        bitset<4> si=temp;//£¡£¡£¡
+        bitset<4> si=temp;//ï¼ï¼ï¼
         for (int j = 0; j < 4; j++)
         {
-            SR[i * 4 + j] = si[3-j];//£¡£¡£¡
+            SR[i * 4 + j] = si[3-j];//ï¼ï¼ï¼
         }
     }
     return SR;
@@ -213,89 +213,25 @@ bitset<32> p_pmt(bitset<32> SR)
 bitset<64> cycle(bitset<48> Keys[16], bitset<64>M, bool en_or_de)
 {
     bitset<64> Round16,Cipher;
-    bitset<56> K0;
     bitset<48> ER, KR;
     bitset<32> L, R, SR, PR, temp;
-    bitset<28> C, D;
 
     init_pmt(M, &L, &R);
 
-    cout << endl;
     for (int i = 0; i < 16; i++)
     {
-        //cout << "¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª" << i + 1 << "¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª" << endl;
-
-        /*cout << "K: ";
-        if (en_or_de)
-        {
-            for (int k = 0; k < 48; k++)
-            {
-                if (k % 8 == 0) printf(" ");
-                cout << Keys[i][k];
-            }
-        }
-        else
-        {
-            for (int k = 0; k < 48; k++)
-            {
-                if (k % 8 == 0) printf(" ");
-                cout << Keys[15-i][k];
-            }
-        }*/
-
         ER = ep_pmt(R);
-        /*cout << "\nER: ";
-        for (int k = 0; k < ER.size(); k++)
-        {
-            if (k % 8 == 0) printf(" ");
-            cout << ER[k];
-        }*/
 
         if(en_or_de)
             KR = ER ^ Keys[i];
         else
             KR = ER ^ Keys[15-i];
-        /*cout << "\nKR: ";
-        for (int k = 0; k < KR.size(); k++)
-        {
-            if (k % 8 == 0) printf(" ");
-            cout << KR[k];
-        }*/
 
         SR = s_box(KR);
-        /*cout << "\nSR: ";
-        for (int k = 0; k < SR.size(); k++)
-        {
-            if (k % 8 == 0) printf(" ");
-            cout << SR[k];
-        }*/
-
         PR = p_pmt(SR);
-        /*cout << "\nPR: ";
-        for (int k = 0; k < PR.size(); k++)
-        {
-            if (k % 8 == 0) printf(" ");
-            cout << PR[k];
-        }*/
-
         temp = R;
         R = L ^ PR;
-        /*cout << "\nR: ";
-        for (int k = 0; k < R.size(); k++)
-        {
-            if (k % 8 == 0) printf(" ");
-            cout << R[k];
-        }*/
-
         L = temp;
-        /*cout << "\nL: ";
-        for (int k = 0; k < L.size(); k++)
-        {
-            if (k % 8 == 0) printf(" ");
-            cout << L[k];
-        }
-        cout << endl;*/
-        //cout << i <<"£º"<< L << " " << R << endl;
     }
 
     for (int i = 0; i < 64; i++)
@@ -306,18 +242,10 @@ bitset<64> cycle(bitset<48> Keys[16], bitset<64>M, bool en_or_de)
 
     Cipher = term_pmt(Round16);
 
-    /*cout << "Cipher: ";
-    for (int k = 0; k < Cipher.size(); k++)
-    {
-        if (k % 8 == 0) printf(" ");
-        cout << Cipher[k];
-    }
-    cout << endl;*/
-
     return Cipher;
 }
 
-//string½øÖÆ×ª»»
+//stringè¿›åˆ¶è½¬æ¢
 string Hex2bin (string strHex)
 {
     string sReturn = "";
@@ -350,7 +278,6 @@ string Hex2bin (string strHex)
             case 'F': sReturn.append ("1111"); break;
         }
     }
-    cout<<"2-16½øÖÆ×ª»»Íê³É"<<endl;
     return sReturn;
 }
 
@@ -382,11 +309,10 @@ string Bin2hex (string strBin)
         }
         //        sReturn.append();
     }
-    cout<<"16-2½øÖÆ×ª»»Íê³É"<<endl;
     return sReturn;
 }
 
-//»ñÈ¡ÃÜÔ¿
+//è·å–å¯†é’¥
 QByteArray Get_K()
 {
     QByteArray K;
@@ -395,11 +321,10 @@ QByteArray Get_K()
     {
         K[i] = rand()%2;
     }
-    qDebug()<<K;
     return K;
 }
 
-//DES¼ÓÃÜº¯Êı
+//æ¯ä¸€åˆ†ç‰‡DESåŠ å¯†
 bitset<64> DES_encrypt(string strK,string strM,int mode)
 {
         bitset<64> K(strK),M(strM),Cipher;
@@ -407,21 +332,14 @@ bitset<64> DES_encrypt(string strK,string strM,int mode)
         bitset<48> Keys[16] = {};
         bitset<28> C, D;
 
-        cout<<endl<<"²ÎÊıM:";
-        for (int i = 0; i < 64; i++)
-        {
-            cout << M[i];
-        }
-
         if(mode){
-            //½«M×ª»»ÎªbitsetË³Ğò
+            //å°†Mè½¬æ¢ä¸ºbitseté¡ºåº
             for (int i = 0; i < 32; i++)
             {
                 int temp = M[i];
                 M[i] = M[63 - i];
                 M[63 - i] = temp;
             }
-            cout <<endl<< "ÄæÖÃM:" << M<<endl;
         }
         K0 = K_init_pmt(K);
         for (int i = 0; i < 28; i++)
@@ -438,51 +356,27 @@ bitset<64> DES_encrypt(string strK,string strM,int mode)
         }
 
         Cipher=cycle(Keys, M, mode);
-        cout<<"Cipher"<<":"<<Cipher<<endl;
-        for (int k = 0; k < Cipher.size(); k++)
-        {
-            if (k % 8 == 0) printf(" ");
-            cout << Cipher[k];
-        }
-        cout<<endl;
+//         for (int k = 0; k < Cipher.size(); k++)
+//         {
+//             if (k % 8 == 0) printf(" ");
+//         }
 
         return Cipher;
-
-//        cout << endl;
-//        M=cycle(Keys, Cipher, 0);
-//        for (int k = 0; k < M.size(); k++)
-//        {
-//            if (k % 8 == 0) printf(" ");
-//            cout << M[k];
-//        }
 }
 
-//QByteArray Encrypt(char* kk,char* mm,int mode)
-QByteArray Encrypt(QByteArray K,QByteArray M,int mode)
+//è¡¥ä½
+void Supplement(int* mode,int* str_len,string* str_m)
 {
-    K=K.toHex();
-    M=M.toHex();
-    //char* kk=K.data();
-    //char* mm=M.data();
-    //QString qstr_k(K),qstr_m(M);
-    QString qstr_k=K,qstr_m=M,qstr_c;//QBt->Ê®Áù½øÖÆQBt->QString
-    //QString qstr_c;
-    string str_k=qstr_k.toStdString();//QString->string
-    string str_m=qstr_m.toStdString();
-    //string²¹Î»
-    int str_len=str_m.length();
-    cout<<"Ô­ÎÄ³¤¶È£º"<<str_len<<endl;
-    //cout<<"Start:"<<str_m.length()<<endl;
-    if(mode)//¼ÓÃÜÊ±²¹Î»
+    if(mode)//åŠ å¯†æ—¶è¡¥ä½
     {
-        if(str_len%16)
+        if((*str_len)%16)
         {
-            int n_add=8-(str_len%16)/2;
+            int n_add=8-((*str_len)%16)/2;
             //char add=('0'+n_add);
             string add;
             switch (n_add)
             {
-                case 0: add="40"; break;//
+                case 0: add="40"; break;
                 case 1: add="31"; break;
                 case 2: add="32"; break;
                 case 3: add="33"; break;
@@ -490,81 +384,61 @@ QByteArray Encrypt(QByteArray K,QByteArray M,int mode)
                 case 5: add="35"; break;
                 case 6: add="36"; break;
                 case 7: add="37"; break;
-                case 8: add="38"; break;//
-//                case 9: add="39"; break;
-//                case 10: add="3a"; break;
-//                case 11: add="3b"; break;
-//                case 12: add="3c"; break;
-//                case 13: add="3d"; break;
-//                case 14: add="3e"; break;
-//                case 15: add="3f"; break;
+                case 8: add="38"; break;
             }
-
-            cout<<"n_add:"<<n_add<<endl;
             while(n_add)
             {
-                str_m=str_m+add;
+                (*str_m)=(*str_m)+add;
                 n_add--;
             }
         }
         else
-            str_m=str_m+"4040404040404040";
-        cout<<"²¹Î»Íê³É"<<endl;
+            (*str_m)=(*str_m)+"4040404040404040";
     }
+}
 
-    cout<<"str_m:"<<str_m<<endl;
-
+//æ•´ä½“DESåŠ å¯†
+QByteArray Encrypt(QByteArray K,QByteArray M,int mode)
+{
+    K=K.toHex();//QBt->åå…­è¿›åˆ¶QBt
+    M=M.toHex();//QBt->åå…­è¿›åˆ¶QBt
+    QString qstr_k=K,qstr_m=M,qstr_c;//åå…­è¿›åˆ¶QBt->QString
+    string str_k=qstr_k.toStdString();//QString->string
+    string str_m=qstr_m.toStdString();//QString->string
+    int str_len=str_m.length();
+    int *md=&mode;
+    int *strl=&str_len;
+    string *stringm=&str_m;
+    if(mode)
+        Supplement( md, strl, stringm);//è¡¥ä½
     string bin_k=Hex2bin(str_k);
-    string bin_m=Hex2bin(str_m);//string->¶ş½øÖÆstring
-    cout<<"bin_k:"<<bin_k<<endl;
-    cout<<"bin_m³¤¶È:"<<bin_m.length()<<endl;
-    cout<<"bin_m:"<<bin_m<<endl<<endl;
-
-    bitset<64> bit_k(bin_k);//ÃÜÔ¿
-    vector<bitset<64>> bit_m;//Ã÷ÎÄ
-
-    string str_c="";
-    QByteArray qbit_c;
-
+    string bin_m=Hex2bin(str_m);//string->äºŒè¿›åˆ¶string
+    bitset<64> bit_k(bin_k);//å¯†é’¥
+    vector<bitset<64>> bit_m;//æ˜æ–‡
+    string str_c="";//stringå¯†æ–‡
+    QByteArray qbit_c;//QByteArrayå¯†æ–‡
     int len=bin_m.length();
-    for(int i=0;i<len/64;i++)//·ÖÆ¬¼ÓÃÜ
+    for(int i=0;i<len/64;i++)//åˆ†ç‰‡åŠ å¯†
     {
-        cout<<"µ±Ç°bin_m:"<<bin_m.substr(0,64);
-        //bitset<64> piece_m(bin_m.substr(0,64));
-        bitset<64> piece_c=DES_encrypt(bin_k,bin_m.substr(0,64),mode);
+        bitset<64> piece_c=DES_encrypt(bin_k,bin_m.substr(0,64),mode);//æ¯ä¸ªåˆ†ç‰‡åŠ å¯†
         bin_m.erase(0,64);
         string str_c_piece=piece_c.to_string();
         if(mode==0)
-        {
-            //if(i==3)break;
-            int i, j;
-            for (i = 0, j = str_c_piece.size() - 1; i < j; ++i, --j)
-            {
+            for (int i = 0,j = str_c_piece.size() - 1; i < j; ++i, --j)
                 swap(str_c_piece[i], str_c_piece[j]);
-            }
-        }
-        cout<<"str_c:"<<str_c_piece<<endl<<endl;
         str_c=str_c+str_c_piece;
     }
-    cout<<"·ÖÆ¬¼ÓÃÜÍê³É"<<endl<<endl;
-
-    cout<<"str_c:"<<str_c<<endl;
     string hex_c=Bin2hex(str_c);
     if(mode==0)
     {
         string add = hex_c.substr(hex_c.length() - 1, 1);
         int n = atoi(add.c_str());
-        cout<<"[n]:"<<n<<endl;
         if (n)
             hex_c.erase(hex_c.length() - n * 2, n * 2);
         else
             hex_c.erase(hex_c.length() - 16, 16);
-        cout<<"È¥³ıÈßÓàÍê³É"<<endl;
     }
-    //hex_c=Hex2bin(hex_c);
     qstr_c= QString::fromStdString(hex_c);
-    qDebug()<<"C:"<<qstr_c;
-    cout<<endl;
     qbit_c=qstr_c.toUtf8();
     qbit_c=QByteArray::fromHex(qbit_c);
     return qbit_c;
@@ -572,7 +446,6 @@ QByteArray Encrypt(QByteArray K,QByteArray M,int mode)
 
 QByteArray DES_en(QByteArray K,QByteArray M){return Encrypt(K,M,1);}
 QByteArray DES_de(QByteArray K,QByteArray C){return Encrypt(K,C,0);}
-
 
 
 

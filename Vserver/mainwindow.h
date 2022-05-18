@@ -21,16 +21,24 @@ public:
     QTcpServer *TCPServer;
     QTcpSocket *socket;
     QByteArray m_buffer;
-    key_pair * p=new key_pair();//自己的密钥
     Message recv_mes;
+    QByteArray g_Key_cv;
+    int g_idc;
+    char* g_Ckey_n;
 
+    void message_handel();
     void V_handel();
+    void userinf_handel();
+    void modinf_handel();
+    void modpsw_handel();
     ~MainWindow();
 private slots:
    void socket_Read_Data();
 private:
     Ui::MainWindow *ui;
 };
+
+
 struct Ticket {
 QByteArray Key_cn;//c与tgs的des密钥
 int IDc;

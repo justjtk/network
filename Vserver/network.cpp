@@ -1,4 +1,5 @@
 #include "network.h"
+#include"DES.h"
 #include<QNetworkInterface>
 #include<QDataStream>
 
@@ -253,4 +254,63 @@ Message receive_message_nodecrypt(QTcpSocket *socket)
     //bool judge=sign_judge(res.data,res.sign,sign_n,sign_e);
     //qDebug()<<judge;
     return res;
+}
+
+bool package_message_DES(char message_type,char field_type,QByteArray  messge,QTcpSocket *socket,QByteArray DES_key,char *sign_n,char *sign_d)
+{
+    Message pac_mes;
+    QString src_ip=socket->localAddress().toString();
+    QString dst_ip=socket->peerAddress().toString();
+    pac_mes.message_length=messge.length();
+    pac_mes.message_type=message_type;
+    pac_mes.field_type=field_type;
+
+    QStringList list=src_ip.split(".");
+
+    int i=0;
+    for(auto & str : list)//切分源IP
+    {
+        pac_mes.des_src[i]=str.toUInt();
+        i++;
+    }
+
+    list=dst_ip.split(".");
+    i=0;
+    for(auto & str : list)//切分目的IP
+    {
+        pac_mes.des_ip[i]=str.toUInt();
+        i++;
+    }
+
+
+
+    QByteArray rsa_f=messge;
+    //rsa_f=rsa_f.toHex();
+    //rsa_f.insert(0,QByteArray("1"));
+
+
+
+    QByteArray rsa_begin(DES_en(DES_key,rsa_f));
+    if(sign_n==nullptr||sign_d==nullptr)
+    {
+    pac_mes.sign="0";
+    pac_mes.sign_length=pac_mes.sign.length();
+    }
+    else
+    {
+        QByteArray sign=sign_create(rsa_f,sign_n,sign_d);
+        QByteArray rsa_sign(DES_en(DES_key,sign));
+        pac_mes.sign=rsa_sign;
+        pac_mes.sign_length=rsa_sign.length();
+    }
+
+
+    pac_mes.data=rsa_begin;
+    pac_mes.message_length=rsa_begin.length();
+
+
+    int num=send_message(socket,pac_mes);
+
+    if(num<=0)return false;
+    else return true;
 }

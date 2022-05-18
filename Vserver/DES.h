@@ -33,14 +33,11 @@ bitset<64> cycle(bitset<48>Keys[16], bitset<64>M, bool en_or_de);
 //string进制转换
 string Hex2bin (string strHex);
 string Bin2hex (string strBin);
-
-////拆分传入参数
-//vector<bitset<64>> Split(QByteArray M);
-////组装处理得到的明文/密文
-//QByteArray Combine(vector<bitset<64>> C);
-////DES加密函数
+//分片补位至64位
+void Supplement(int* mode,int* str_len,string* str_m);
+//DES加密函数
 bitset<64> DES_encrypt(string K,string M,int mode);
-////加密
+//加密
 QByteArray Encrypt(QByteArray K,QByteArray M,int mode);
 
 //加解密过程的K、M、C都是二进制QByteArray类型

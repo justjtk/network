@@ -13,6 +13,7 @@ SOURCES += \
     DES.cpp \
     MD5.cpp \
     RSA.cpp \
+    imagehandle.cpp \
     main.cpp \
     mainwindow.cpp \
     network.cpp
@@ -21,6 +22,7 @@ HEADERS += \
     DES.h \
     MD5.h \
     RSA.h \
+    imagehandle.h \
     mainwindow.h \
     network.h
 
