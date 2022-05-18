@@ -13,19 +13,34 @@ SOURCES += \
     DES.cpp \
     MD5.cpp \
     RSA.cpp \
+    imagehandle.cpp \
     main.cpp \
     mainwindow.cpp \
-    network.cpp
+    modifyinf.cpp \
+    modifypsw.cpp \
+    network.cpp \
+    wmodify.cpp \
+    wuser.cpp
 
 HEADERS += \
     DES.h \
     MD5.h \
     RSA.h \
+    imagehandle.h \
+    kerberos.h \
     mainwindow.h \
-    network.h
+    modifyinf.h \
+    modifypsw.h \
+    network.h \
+    wmodify.h \
+    wuser.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    modifyinf.ui \
+    modifypsw.ui \
+    wmodify.ui \
+    wuser.ui
 
 LIBS += -llibgmp-10
 win32: LIBS += -L$$PWD/ -llibgmp-10

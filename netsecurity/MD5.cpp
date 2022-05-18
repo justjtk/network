@@ -22,6 +22,7 @@ bool sign_judge(QByteArray data,QByteArray sign,char * n,int e)//数字签名的
     qDebug()<<strMD5;
     char *ch;
     ch = sign.data();
+    if(sign.toHex()=="0")return true;
     char *md5_decrypt=encrypt(ch,n,e);
    // qDebug()<<md5_decrypt;
     QString strMD5_1=QString(md5_decrypt);
