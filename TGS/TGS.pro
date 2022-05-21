@@ -14,14 +14,20 @@ SOURCES += \
     RSA.cpp \
     main.cpp \
     mainwindow.cpp \
-    network.cpp
+    mysocket.cpp \
+    mytcpserver.cpp \
+    network.cpp \
+    serverthread.cpp
 
 HEADERS += \
     DES.h \
     MD5.h \
     RSA.h \
     mainwindow.h \
-    network.h
+    mysocket.h \
+    mytcpserver.h \
+    network.h \
+    serverthread.h
 
 FORMS += \
     mainwindow.ui
