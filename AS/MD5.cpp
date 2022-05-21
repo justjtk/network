@@ -19,7 +19,7 @@ bool sign_judge(QByteArray data,QByteArray sign,char * n,int e)//数字签名的
     QByteArray hash = QCryptographicHash::hash(data, QCryptographicHash::Md5);
     QString strMD5 = hash.toHex();
 
-    qDebug()<<strMD5;
+    //qDebug()<<strMD5;
     char *ch;
     ch = sign.data();
     char *md5_decrypt=encrypt(ch,n,e);

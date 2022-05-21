@@ -160,13 +160,13 @@ int send_message(QTcpSocket *socket,Message message)
     msg.message_length=sizeof(header);
 
     send_procedure<<msg.message_length;
-    qDebug()<<m_data_block.length();
+    //qDebug()<<m_data_block.length();
 
     QByteArray data2;
     data2.append((char *)&header, sizeof(header));
 
     send_procedure<<data2;
-    qDebug()<<data2.length()<<m_data_block.length();
+    //qDebug()<<data2.length()<<m_data_block.length();
 
 
     //qDebug()<<message.message_length;
@@ -175,7 +175,7 @@ int send_message(QTcpSocket *socket,Message message)
     data3.append(message.sign);
 
     send_procedure<<data3;
-    qDebug()<<data3.length()<<m_data_block.length();
+    //qDebug()<<data3.length()<<m_data_block.length();
     socket->write(m_data_block);
     socket->waitForBytesWritten();
     return 0;
@@ -191,7 +191,7 @@ Message receive_message(QTcpSocket *socket,char * n, char * d,char * sign_n, int
     socket->waitForReadyRead();
     QByteArray t1=socket->read(msg1->message_length);
     Mes *header=(Mes *)t1.data();
-    qDebug()<<int(header->field_type);
+    //qDebug()<<int(header->field_type);
     socket->waitForReadyRead();
     QByteArray t2=socket->read((header->message_length+header->sign_length));
     QString te=QString(t2.left(header->message_length));
