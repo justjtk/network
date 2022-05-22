@@ -1,0 +1,29 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file alias="head">source/head.png</file>
+    </qresource>
+    <qresource prefix="/new/prefix2">
+        <file alias="btn">source/btn.png</file>
+    </qresource>
+    <qresource prefix="/new/prefix3">
+        <file alias="btn_test1">source/btn1.png</file>
+        <file alias="btn_test2">source/btn2.png</file>
+        <file alias="btn_test3">source/btn3.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>picture/good.png</file>
+        <file>picture/left_change.png</file>
+        <file>picture/login.png</file>
+        <file>picture/right_change.png</file>
+        <file>picture/search.png</file>
+        <file>picture/update.png</file>
+        <file>picture/user_info.png</file>
+        <file>picture/VIP.png</file>
+        <file>picture/cart_change.png</file>
+        <file>picture/cart.png</file>
+        <file>picture/header.png</file>
+        <file>picture/good_change.png</file>
+        <file>picture/user_info_change.png</file>
+        <file>picture/paw.png</file>
+    </qresource>
+</RCC>
