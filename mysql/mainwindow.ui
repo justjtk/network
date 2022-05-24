@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1169</width>
+    <height>775</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QTableView" name="tableView">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>0</y>
+      <width>921</width>
+      <height>721</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QTableView {
+    color: white;                                       /*表格内文字颜色*/
+    gridline-color: black;                              /*表格内框颜色*/
+    background-color: rgb(108, 108, 108);               /*表格内背景色*/
+    alternate-background-color: rgb(64, 64, 64);
+    selection-color: white;                             /*选中区域的文字颜色*/
+    selection-background-color: rgb(77, 77, 77);        /*选中区域的背景色*/
+    border: 2px groove gray;
+    border-radius: 0px;
+    padding: 2px 4px;
+}
+
+/*QTableView 左上角样式*/
+QTableView QTableCornerButton::section {
+   /*  background: red;
+    border: 2px outset red;*/
+    color: red;
+    background-color: rgb(64, 64, 64);
+    border: 5px solid #f6f7fa;
+    border-radius:0px;
+    border-color: rgb(64, 64, 64);
+ }
+
+ QTableView {
+    color: white;                                       /*表格内文字颜色*/
+    gridline-color: black;                              /*表格内框颜色*/
+    background-color: rgb(108, 108, 108);               /*表格内背景色*/
+    alternate-background-color: rgb(64, 64, 64);
+    selection-color: white;                             /*选中区域的文字颜色*/
+    selection-background-color: rgb(77, 77, 77);        /*选中区域的背景色*/
+    border: 2px groove gray;
+    border-radius: 0px;
+    padding: 2px 4px;
+}
+
+QHeaderView {
+    color: white;
+    font: bold 10pt;
+    background-color: rgb(108, 108, 108);
+    border: 0px solid rgb(144, 144, 144);
+    border:0px solid rgb(191,191,191);
+    border-left-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-radius:0px;
+    min-height:29px;
+}
+
+QHeaderView::section {
+    color: white;
+    background-color: rgb(64, 64, 64);
+    border: 5px solid #f6f7fa;
+    border-radius:0px;
+    border-color: rgb(64, 64, 64);
+} 
+</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>180</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>输入查询内容</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>350</y>
+      <width>161</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>添加</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>460</y>
+      <width>161</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>删除</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>管理员ID：</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>70</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>130</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+background-color: #fff9fa;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>230</y>
+      <width>161</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-color: rgb(253, 159, 154);</string>
+    </property>
+    <property name="text">
+     <string>查询</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>600</y>
+      <width>100</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>商品图片预览区</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>560</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string> 商品显示</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>20</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>抓包显示</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1169</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>选择图表</string>
+    </property>
+    <addaction name="actiong"/>
+    <addaction name="actionw"/>
+    <addaction name="actionm"/>
+    <addaction name="actions"/>
+    <addaction name="actionp"/>
+    <addaction name="actiona"/>
+   </widget>
+   <addaction name="menu"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actiong">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>商品表</string>
+   </property>
+  </action>
+  <action name="actionw">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>购物车表</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::TextHeuristicRole</enum>
+   </property>
+  </action>
+  <action name="actionm">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>管理员表</string>
+   </property>
+  </action>
+  <action name="actions">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>用户表</string>
+   </property>
+  </action>
+  <action name="actionp">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>会员表</string>
+   </property>
+  </action>
+  <action name="actiona">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>销售表</string>
+   </property>
+  </action>
+  <action name="export_2">
+   <property name="text">
+    <string>导出数据</string>
+   </property>
+  </action>
+  <action name="Import">
+   <property name="text">
+    <string>导入数据</string>
+   </property>
+  </action>
+  <action name="gtos">
+   <property name="text">
+    <string>食品名查供应商名</string>
+   </property>
+  </action>
+  <action name="stog">
+   <property name="text">
+    <string>供应商名查食品名</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

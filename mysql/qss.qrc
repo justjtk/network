@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>MaterialDark.qss</file>
+        <file>MacOS.qss</file>
+        <file>ElegantDark.qss</file>
+        <file>Ubuntu.qss</file>
+        <file>Aqua.qss</file>
+        <file>header.png</file>
+    </qresource>
+</RCC>
